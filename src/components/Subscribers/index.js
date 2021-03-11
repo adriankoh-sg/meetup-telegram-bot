@@ -20,7 +20,7 @@ function Subscribers () {
     useEffect( () => {
         
         if (!loaded) {
-            setLoaded(false)
+            
             Axios.get(Config.api.tgGetSubscribers)
             .then( (result) => {
                   setLoaded(true) 
@@ -251,6 +251,8 @@ function Subscribers () {
         )
     }
 
+
+    //Below is the start of the main page render for subscribers
     return (
         !loaded ? 
         <div>

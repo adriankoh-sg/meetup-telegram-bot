@@ -26,4 +26,6 @@
 
      define('ASK_FOR_NAME', "Please tell us your known name to us? 请输入在公德大家对您的称呼");
      define('RECORD_UPDATED', "Record updated. 输入完毕");
+
+     define('TRX_RATE', 20); //Telegram limits the sending of msg @ 30 message per second
 ?>

@@ -31,6 +31,8 @@ if ($data) {
         $id = $data->callback_query->from->id;
         $text = $data->callback_query->message->text;
         registerName($db, $data->callback_query->message, $reply);
+    } else {
+        apiLog(json_decode($data), false);
     }
 
 }

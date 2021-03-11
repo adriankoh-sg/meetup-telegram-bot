@@ -94,15 +94,17 @@ function sendMessage ($db, $id, $msg) {
     $result = $db->query("SELECT * FROM `tgSettings`");
     $row = $result->fetch_row();
     $token = $row[0];
+    $text = urlencode($msg);
     
     $result->close();
-    $url = $telegramAPI['botUri'] . $token . "/sendMessage?chat_id={$id}&parse_mode=HTML&text={$msg}";
+    $url = $telegramAPI['botUri'] . $token . "/sendMessage?chat_id={$id}&parse_mode=HTML&text={$text}";
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
     $output = curl_exec($curl);
     curl_close($curl);
+    return $output;
 }
 
 function confirmName ($db, $id, $msg) {
