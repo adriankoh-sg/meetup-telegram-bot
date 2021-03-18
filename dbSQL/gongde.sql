@@ -54,12 +54,6 @@ CREATE TABLE `tgsettings` (
   `welcomeMessage` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tgsettings`
---
-
-INSERT INTO `tgsettings` (`token`, `botName`, `webhook`, `welcomeMessage`) VALUES
-('1577233399:AAEb6-TgdyyDzip-VDLLmKF0RUbzhvEEDAw', 'Gongde_bot', 'http://localhost/gongde/api/telegram/hookUpdate.php', '<b>Welcome To Gong De TZRC bot</b>\nThis is the Telegram Bot create to help:\n- Send auto reminder of classes, meetings and LY\n- Help to coordinate manpower for LY\n欢迎大家来到<b>公德堂主人才网上平台</b>。\n此平台创建的目的是为了通知各位有关班期、座谈会、了愿事项等等。\n感谢天恩师德');
 
 -- --------------------------------------------------------
 
