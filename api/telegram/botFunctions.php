@@ -104,7 +104,7 @@ function sendMessage ($db, $id, $msg) {
     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
     $output = curl_exec($curl);
     curl_close($curl);
-    return $output;
+    return json_decode($output) ;
 }
 
 function confirmName ($db, $id, $msg) {

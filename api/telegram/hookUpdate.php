@@ -24,6 +24,18 @@ if ($data) {
         $message = $data->message->text;
         switch ($message) {
             case '/start' : addNewSubscriber($db, $data->message->from, $data->message->date); break;
+            case '0':
+            case '/0':
+                $output = sendMessage($db, $data->message->from->id, MENU );
+                if ($output->ok === true) 
+                    apiLog("Request [0] from [{$data->message->from->id}] responded [OK].", false);
+                else
+                    apiLog("Request [0] from [{$data->message->from->id}] responded [FAIL].", true);
+            break;
+            case '1':
+            case '/1':
+                sendComingEvent($db, $data->message->from->id);
+            break;
             default: registerName($db, $data->message, $message);  break;
         }
     } else if ( $data->callback_query ) {
@@ -81,11 +93,15 @@ function registerName ($db, $chat, $msg) {
             $id = $chat->chat->id; //the person chat id
             
             $query = "UPDATE `tgSubscriber` SET `knowName` = '{$chat->text}' WHERE `chat_id` = {$id}";
-            if( $db->query($query) ) 
-                $reply = RECORD_UPDATED;
+            if( $db->query($query) ) {
+                sendMessage($db, $id, RECORD_UPDATED);
+                $output = sendMessage($db,  $id, MENU );
+            }
             else
+            {
                 $reply = "Problem updating record. Please sent an email to ". ADMIN_EMAIL ." Ref [". $id ."]";
-            sendMessage($db, $id, $reply);
+                sendMessage($db, $id, $reply);
+            }
             break;
         case TG_REPLY_NO:  
             $id = $chat->chat->id; //the person chat id 
@@ -103,6 +119,38 @@ function registerName ($db, $chat, $msg) {
             } 
             break;
     }
+}
+
+function sendComingEvent($db, $chat_id) {
+    $startDate = date('Y-m-d');
+    $endDate = date('Y-m-d', strtotime($startDate . ' + 90 days'));
+
+
+    $query = "SELECT * FROM `tgevents` 
+        WHERE tgevents.startDate 
+        BETWEEN '{$startDate} 00:00:00' AND '{$endDate} 23:59:59'
+        ORDER BY tgevents.startDate ASC; ";
+
+    //apiLog($query, false);
+    $result = $db->query($query);
+    $count = 0;
+    while ( ($row = $result->fetch_row()) && ($count < 2)  ) {
+
+        $d = date('d-M-Y', strtotime($row[3]));
+        $t = date('h:i a', strtotime($row[3]));
+
+         $text = "<b>" . $row[1] . "</b>\n" 
+                    . $row[2] . "\n<pre>Date: ". $d ."</pre>\n<pre>Time:  ". $t . "</pre>";
+         $output = sendMessage($db, $chat_id, $text);
+         $count ++;
+         if ($output->ok === true) {
+            apiLog("Request [1] from [$chat_id] responded [OK].", false);
+         } else {
+            apiLog("Request [1] from [$chat_id] responded [FAIL].", true);
+         }
+        
+    }
+    
 }
 
 $db->close();

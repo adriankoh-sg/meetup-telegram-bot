@@ -8,7 +8,8 @@ const Config = {
         'tgEditSubscriber' : BASE_URL + '/editSubscribers.php',
         'tgGroups' : BASE_URL + '/groups.php',
         'tgMembers' : BASE_URL + '/members.php',
-        'tgSendMessage': BASE_URL + '/sendMessage.php'
+        'tgSendMessage': BASE_URL + '/sendMessage.php',
+        'tgEvents' : BASE_URL + '/events.php'
     }
     
 }

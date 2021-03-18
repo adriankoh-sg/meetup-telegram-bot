@@ -2,6 +2,7 @@
 
    date_default_timezone_set('Asia/Singapore');
 
+   // Url for bot = http://t.me/Gongde_bot
     // web hook url will be saved in db
     // $webhookUrl = 'http://localhost/gongdetzrc/api/telegram/update.php';
      $gongde_db = [
@@ -26,6 +27,7 @@
 
      define('ASK_FOR_NAME', "Please tell us your known name to us? 请输入在公德大家对您的称呼");
      define('RECORD_UPDATED', "Record updated. 输入完毕");
+     define('MENU', "Please reply the following for details.\n/0 = Menu \n/1 = Upcoming Event");
 
      define('TRX_RATE', 20); //Telegram limits the sending of msg @ 30 message per second
 ?>

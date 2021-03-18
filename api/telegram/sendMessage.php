@@ -42,7 +42,7 @@ if (isset($data->group_id)) {
         $output = json_decode($output);
         $OK = ($output->ok) ? 'OK' : 'Not OK';
         $success = $success && $output->ok;
-        apiLog("Message send to {$cid} is {$OK}", !$output->ok);
+        apiLog("Message send to [{$cid}] is [{$OK}], GroupID [{$data->group_id}]", !$output->ok);
         if (($i % TRX_RATE) == 0) sleep(1); //Telegram limits @ 30 msg/sec 
     }
     $msg = ($success) ? 'All message are delivered.' : 'One or more message have error.';

@@ -238,7 +238,7 @@ function Subscribers () {
                                     <div className="card m-2 shadow-sm" key={i}>
                                         <div className="card-body">
                                             <p>{item.firstName} | {item.knowName}</p>
-                                            <button type="button" class="btn btn-secondary" onClick={()=>removeMember(item)}>Remove</button>
+                                            <button type="button" className="btn btn-secondary" onClick={()=>removeMember(item)}>Remove</button>
                                         </div>
                                     </div>
                                 )
